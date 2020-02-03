@@ -28,7 +28,7 @@ def handle_date(message):
     birthDate = message.text
     bot.send_message(message.from_user.id, f'birh: {birthDate}')
     markup = tb.types.InlineKeyboardMarkup()
-    markup.add(tb.types.InlineKeyboardButton("Записаться", callback_data='start'))
+    markup.add(tb.types.InlineKeyboardButton("Записаться", callback_data='s1'*32))
     bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
 
@@ -67,7 +67,7 @@ def handle_schedule(call):
     doctor = Emias.schedule(omsNumber, birthDate, id)
     for day in doctor['scheduleOfDay']:
         for row_schedule in day['scheduleBySlot'][0]['slot']:
-            markup.add(tb.types.InlineKeyboardButton(row_schedule['startTime'], callback_data='sch'+str(doctor['id'])))
+            markup.add(tb.types.InlineKeyboardButton(row_schedule['startTime'], callback_data='sch'+str(doctor['availableResource']['id'])))
 
     bot.send_message(call.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
