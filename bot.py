@@ -4,7 +4,7 @@ import time
 import telebot
 
 
-bot = telebot.TeleBot(os.environ['token'])
+bot = telebot.TeleBot(os.environ['TOKEN'])
 
 
 @bot.message_handler(content_types=['text'])
