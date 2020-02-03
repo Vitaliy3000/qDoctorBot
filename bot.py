@@ -15,15 +15,15 @@ def handle_authorization(message):
     bot.send_message(message.from_user.id, 'Отправьте, пожалуйста, вашу дату рождения в формате ГГГГ-ММ-ДД')
 
 
-@bot.message_handler(content_types=['text'], func=lambda massege: len(massege.text) == 12)
+@bot.message_handler(content_types=['text'], func=lambda message: len(message.text) == 12)
 def handle_oms(message):
-    omsNumber = massege.text
+    omsNumber = message.text
     bot.send_message(message.from_user.id, f'oms: {omsNumber }')
 
 
-@bot.message_handler(content_types=['text'], func=lambda massege: len(massege.text) == 10)
+@bot.message_handler(content_types=['text'], func=lambda message: len(message.text) == 10)
 def handle_date(message):
-    birthDate = massege.text
+    birthDate = message.text
     bot.send_message(message.from_user.id, f'birh: {omsNumber }')
     markup = tb.types.InlineKeyboardMarkup()
     markup.add(tb.types.InlineKeyboardButton("Записаться", callback_data='start'))
@@ -32,7 +32,7 @@ def handle_date(message):
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
-    bot.send_message(message.from_user.id, massege.text)
+    bot.send_message(message.from_user.id, message.text)
     bot.send_message(message.from_user.id, 'test')
 
 
