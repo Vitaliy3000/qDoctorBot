@@ -32,6 +32,7 @@ def handle_date(message):
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
+    bot.send_message(message.from_user.id, massege.text)
     bot.send_message(message.from_user.id, 'test')
 
 
