@@ -15,6 +15,7 @@ def handle_text(message):
 if __name__ == '__main__':
     while True:
         try:
+            print('start')
             bot.polling(none_stop=True, timeout=0)
         except Exception as e:
             time.sleep(3)
