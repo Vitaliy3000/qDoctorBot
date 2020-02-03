@@ -3,7 +3,8 @@ import time
 
 import telebot
 
-
+print('init')
+print(os.environ['token'])
 bot = telebot.TeleBot(os.environ['token'])
 
 
