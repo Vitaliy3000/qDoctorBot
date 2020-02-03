@@ -131,7 +131,7 @@ def handle_appointment(call):
     data = call.data[3:]
     id, complexResource, code, startTime, delta = data.split('|')
     startTime = utils.uncompress_datetime(startTime)
-    endTime = startTime + delta
+    endTime = startTime + datetime.timedelta(seconds=delta)
 
     Emias.create_appointment(
         omsNumber,
