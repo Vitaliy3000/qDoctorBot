@@ -109,6 +109,8 @@ class Emias:
             },
         }
 
+        import json
+        print(json.dumps(data))
         response = requests.post(url, json=data)
         result = response.json()["result"]
         return result
