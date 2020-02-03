@@ -11,8 +11,10 @@ bot = tb.TeleBot(os.environ['TOKEN'])
 def handle_authorization(message):
     bot.send_message(message.from_user.id, 'Отправьте, пожалуйста, ваш номер полиса')
     bot.send_message(message.from_user.id, 'Отправьте, пожалуйста, вашу дату рождения в формате ДД ММ ГГГГ')
-    keyboard = [[tb.InlineKeyboardButton("Записаться", callback_data='1')]]
-    markup = tb.InlineKeyboardMarkup(keyboard)
+    # keyboard = [[tb.InlineKeyboardButton("Записаться", callback_data='1')]]
+    # markup = tb.InlineKeyboardMarkup(keyboard)
+    markup = types.InlineKeyboardMarkup()
+    markup.add(tb.InlineKeyboardButton("Записаться", callback_data='1'))
     bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
 
