@@ -39,7 +39,10 @@ def handle_oms(message):
 def handle_date(message):
     user_id = message.from_user.id
     USERS[user_id] = USERS.get(user_id, {}).update({'birthDate': parse_birthDate(message)})
-    bot.send_message(user_id, f"Проверьте правильность введенных вами данных:\nПолис: {omsNumber}\nДата рождения:{birthDay}")
+    omsNumber = USERS[user_id]['omsNumber']
+    birthDate = USERS[user_id]['birthDate']
+
+    bot.send_message(user_id, f"Проверьте правильность введенных вами данных:\nПолис: {omsNumber}\nДата рождения:{birthDate}")
     markup = tb.types.ReplyKeyboardMarkup()
     markup.add(
         tb.types.KeyboardButton('Верно'),
