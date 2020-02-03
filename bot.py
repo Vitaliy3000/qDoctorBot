@@ -15,7 +15,7 @@ def handle_authorization(message):
     bot.send_message(message.from_user.id, 'Отправьте, пожалуйста, вашу дату рождения в формате ГГГГ-ММ-ДД')
 
 
-@bot.message_handler(content_types=['text'], func=lambda message: len(message.text) == 12)
+@bot.message_handler(content_types=['text'], func=lambda message: len(message.text) == 16)
 def handle_oms(message):
     omsNumber = message.text
     bot.send_message(message.from_user.id, f'oms: {omsNumber }')
