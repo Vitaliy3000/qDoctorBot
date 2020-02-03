@@ -4,6 +4,7 @@ import time
 import telebot as tb
 
 from services import Emias
+import utils
 # import database
 
 
@@ -107,27 +108,42 @@ def handle_schedule(call):
 
     markup = tb.types.InlineKeyboardMarkup()
 
-    doctor = call.data[3:]
-    id = doctor.split('|')[0]
+    data = call.data[3:]
+    id = data.split('|')[0]
     doctor = Emias.schedule(omsNumber, birthDate, int(id))
     for day in doctor['scheduleOfDay']:
         for row_schedule in day['scheduleBySlot'][0]['slot']:
-            startTime = row_schedule['startTime']
-            endTime = row_schedule['endTime']
-            print(startTime, endTime)
-            print(f"sch{doctor}|{startTime}|{endTime}")
-            print(len(f"sch{doctor}|{startTime}|{endTime}"))
-            markup.add(tb.types.InlineKeyboardButton(startTime, callback_data=f"sch{doctor}|{startTime}|{endTime}"))
+            startTime = utils.parse_datetime_emias(row_schedule['startTime'])
+            endTime = utils.parse_datetime_emias(row_schedule['endTime'])
+            delta = (endTime - startTime).seconds
+            startTime = utils.compress_datetime(startTime)
+            markup.add(tb.types.InlineKeyboardButton(startTime, callback_data=f"sch{data}|{startTime}|{delta}"))
 
     bot.send_message(call.from_user.id, 'Пожалуйста выберите время:', reply_markup=markup)
 
 
+@bot.callback_query_handler(func=lambda call: call.data.startswith('sch'))
+def handle_appointment(call):
+    user_id = call.from_user.id
+    omsNumber = USERS[user_id]['omsNumber']
+    birthDate = USERS[user_id]['birthDate']
 
-# @bot.callback_query_handler(func=lambda call: True)
-# def test_callback(call):
-#     bot.send_message(call.from_user.id, str(call))
-#     departaments = 
-#     return
+    data = call.data[3:]
+    id, complexResource, code, startTime, delta = data.split('|')
+    startTime = utils.uncompress_datetime(startTime)
+    endTime = startTime + delta
+
+    Emias.create_appointment(
+        omsNumber,
+        birthDate,
+        int(id),
+        int(complexResource),
+        code,
+        utils.datetime_to_emias_format(startTime),
+        utils.datetime_to_emias_format(endTime),
+    )
+
+    bot.send_message(call.from_user.id, 'Вы записаны!')
 
 
 if __name__ == '__main__':
