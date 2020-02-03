@@ -45,7 +45,7 @@ def handle_departments(call):
     for departament in Emias.deparments(omsNumber, birthDate):
         markup.add(tb.types.InlineKeyboardButton(departament['name'], callback_data='dep'+departament['code']))
 
-    bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
+    bot.send_message(call.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('dep'))
@@ -56,11 +56,11 @@ def handle_doctors(call):
     for doctor in Emias.doctors(omsNumber, birthDate, code):
         markup.add(tb.types.InlineKeyboardButton(doctor['name'], callback_data='doc'+str(doctor['id'])))
 
-    bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
+    bot.send_message(call.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('doc'))
-def handle_doctors(call):
+def handle_schedule(call):
     markup = tb.types.InlineKeyboardMarkup()
 
     id = int(call.data[3:])
@@ -69,7 +69,7 @@ def handle_doctors(call):
         for row_schedule in day['scheduleBySlot'][0]['slot']:
             markup.add(tb.types.InlineKeyboardButton(row_schedule['startTime'], callback_data='sch'+str(doctor['id'])))
 
-    bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
+    bot.send_message(call.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
 
 
