@@ -39,6 +39,7 @@ def handle_oms(message):
 def handle_date(message):
     user_id = message.from_user.id
     USERS[user_id] = USERS.get(user_id, {}).update({'birthDate': parse_birthDate(message)})
+    print(USERS)
     omsNumber = USERS[user_id]['omsNumber']
     birthDate = USERS[user_id]['birthDate']
 
