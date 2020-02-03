@@ -7,6 +7,11 @@ import telebot
 bot = telebot.TeleBot(os.environ['TOKEN'])
 
 
+@bot.message_handler(commands=['authorization'])
+def handle_authorization(message):
+    bot.send_message(message.from_user.id, 'you press authorization')
+
+
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     bot.send_message(message.from_user.id, 'test')
