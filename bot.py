@@ -28,7 +28,7 @@ def handle_date(message):
     birthDate = message.text
     bot.send_message(message.from_user.id, f'birh: {birthDate}')
     markup = tb.types.InlineKeyboardMarkup()
-    markup.add(tb.types.InlineKeyboardButton("Записаться", callback_data='s1'*32))
+    markup.add(tb.types.InlineKeyboardButton("Записаться", callback_data='s1'*64))
     bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
 
 
@@ -38,7 +38,7 @@ def handle_text(message):
     bot.send_message(message.from_user.id, 'test')
 
 
-@bot.callback_query_handler(func=lambda call: call.data == 's1'*32)
+@bot.callback_query_handler(func=lambda call: call.data == 's1'*64)
 def handle_departments(call):
     markup = tb.types.InlineKeyboardMarkup()
 
