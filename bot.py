@@ -17,14 +17,16 @@ def handle_authorization(message):
 
 @bot.message_handler(content_types=['text'], func=lambda message: len(message.text) == 16)
 def handle_oms(message):
+    global omsNumber
     omsNumber = message.text
-    bot.send_message(message.from_user.id, f'oms: {omsNumber }')
+    bot.send_message(message.from_user.id, f'oms: {omsNumber}')
 
 
 @bot.message_handler(content_types=['text'], func=lambda message: len(message.text) == 10)
 def handle_date(message):
+    global birthDate
     birthDate = message.text
-    bot.send_message(message.from_user.id, f'birh: {omsNumber }')
+    bot.send_message(message.from_user.id, f'birh: {birthDate}')
     markup = tb.types.InlineKeyboardMarkup()
     markup.add(tb.types.InlineKeyboardButton("Записаться", callback_data='start'))
     bot.send_message(message.from_user.id, 'Пожалуйста выберите:', reply_markup=markup)
