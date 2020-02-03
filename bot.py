@@ -76,7 +76,7 @@ def handle_departments(call):
     for departament in Emias.deparments(omsNumber, birthDate):
         markup.add(tb.types.InlineKeyboardButton(departament['name'], callback_data='dep'+departament['code']))
 
-    markup.add(tb.types.InlineKeyboardButton("<- Назад", callback_data="start"))
+    # markup.add(tb.types.InlineKeyboardButton("<- Назад", callback_data="start"))
 
     bot.send_message(call.from_user.id, 'Пожалуйста выберите департамент:', reply_markup=markup)
 
@@ -114,6 +114,8 @@ def handle_schedule(call):
         for row_schedule in day['scheduleBySlot'][0]['slot']:
             startTime = row_schedule['startTime']
             endTime = row_schedule['endTime']
+            print(startTime, endTime)
+            print(f"sch{doctor}|{startTime}|{endTime}")
             print(len(f"sch{doctor}|{startTime}|{endTime}"))
             markup.add(tb.types.InlineKeyboardButton(startTime, callback_data=f"sch{doctor}|{startTime}|{endTime}"))
 
