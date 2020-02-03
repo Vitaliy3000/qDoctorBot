@@ -32,19 +32,17 @@ def handle_authorization(message):
 def handle_oms(message):
     user_id = message.from_user.id
     USERS[user_id] = {'omsNumber': message.text}
-    print(USERS)
     bot.send_message(user_id, 'Отправьте, пожалуйста, вашу дату рождения в формате ДД ММ ГГГГ')
 
 
 @bot.message_handler(content_types=['text'], func=parse_birthDate)
 def handle_date(message):
     user_id = message.from_user.id
-    USERS[user_id] = USERS.get(user_id, {}).update({'birthDate': parse_birthDate(message)})
-    print(USERS)
+    USERS[user_id].update({'birthDate': parse_birthDate(message)})
     omsNumber = USERS[user_id]['omsNumber']
     birthDate = USERS[user_id]['birthDate']
 
-    bot.send_message(user_id, f"Проверьте правильность введенных вами данных:\nПолис: {omsNumber}\nДата рождения:{birthDate}")
+    bot.send_message(user_id, f"Проверьте правильность введенных вами данных:\nПолис: {omsNumber}\nДата рождения: {birthDate}")
     markup = tb.types.ReplyKeyboardMarkup()
     markup.add(
         tb.types.KeyboardButton('Верно'),
