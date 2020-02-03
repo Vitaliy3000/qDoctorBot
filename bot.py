@@ -38,7 +38,7 @@ def handle_text(message):
     bot.send_message(message.from_user.id, 'test')
 
 
-@bot.callback_query_handler(func=lambda call: call.data == 'start')
+@bot.callback_query_handler(func=lambda call: call.data == 's1'*32)
 def handle_departments(call):
     markup = tb.types.InlineKeyboardMarkup()
 
