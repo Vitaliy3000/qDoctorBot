@@ -103,7 +103,7 @@ class Emias:
                 "birthDate": birthDate,
                 "availableResourceId": availableResourceId,
                 "complexResourceId": complexResourceId,
-                "receptionTypeId": complexResourceId,
+                "receptionTypeId": receptionTypeId,
                 "startTime": startTime,
                 "endTime": endTime,
             },
